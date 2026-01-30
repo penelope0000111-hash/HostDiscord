@@ -3,7 +3,7 @@ const { spawn } = require('child_process');
 const path = require('path');
 const app = express();
 
-// IMPORTANTE: Koyeb espera el puerto 8000 según tus logs
+// Usamos el puerto 8000 para Koyeb
 const port = process.env.PORT || 8000; 
 
 app.use(express.json());
@@ -13,19 +13,19 @@ app.set('views', path.join(__dirname, 'views'));
 
 let runningBots = {};
 
-// Ruta principal
 app.get('/', (req, res) => {
     res.render('index', { bots: Object.keys(runningBots) });
 });
 
-// Ruta para lanzar bots
-app.post('/launch', (req, res) => {
+// Cambiamos el nombre de la ruta a /add-bot para que coincida con tu error
+app.post('/add-bot', (req, res) => {
     const { botName, token } = req.body;
 
     if (runningBots[botName]) {
         return res.send('Este bot ya está corriendo.');
     }
 
+    // Lanza el proceso del bot
     const botProcess = spawn('node', ['bot_template.js', token]);
 
     botProcess.stdout.on('data', (data) => {
@@ -40,9 +40,6 @@ app.post('/launch', (req, res) => {
     res.redirect('/');
 });
 
-// El '0.0.0.0' es vital para que Koyeb detecte que la app está viva
 app.listen(port, "0.0.0.0", () => {
-    console.log(`-----------------------------------------`);
-    console.log(`🚀 PANEL ONLINE EN PUERTO: ${port}`);
-    console.log(`-----------------------------------------`);
+    console.log(`🚀 Panel Online en el puerto: ${port}`);
 });
