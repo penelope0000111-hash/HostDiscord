@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Mi Panel de Bots</title>
+    <style>
+        body { font-family: sans-serif; background: #2c2f33; color: white; padding: 20px; }
+        input { padding: 10px; margin: 5px; border-radius: 5px; border: none; }
+        button { padding: 10px; background: #7289da; color: white; border: none; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <h1>Controlador de Bots Privado</h1>
+    <form action="/add-bot" method="POST">
+        <input type="text" name="name" placeholder="Nombre del Bot" required>
+        <input type="text" name="token" placeholder="Token del Bot" style="width: 300px;" required>
+        <button type="submit">Lanzar Bot</button>
+    </form>
+</body>
+</html>
